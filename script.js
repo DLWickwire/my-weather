@@ -28,7 +28,6 @@ onEvent("minnButton", "click", function () {
     showElement("minnData");
     setProperty("minnButton", "height", "50px");
     setText("minnButton", "Have a beautiful day");
-
 });
 
 onEvent("nycButton", "click", function () {
@@ -36,7 +35,6 @@ onEvent("nycButton", "click", function () {
     showElement("nycData");
     setProperty("nycButton", "height", "50px");
     setText("nycButton", "Have a beautiful day");
-
 });
 
 onEvent("seattleButton", "click", function () {
@@ -44,7 +42,6 @@ onEvent("seattleButton", "click", function () {
     showElement("seattleData");
     setProperty("seattleButton", "height", "50px");
     setText("seattleButton", "Have a beautiful day");
-
 });
 
 function resetButtons() {
