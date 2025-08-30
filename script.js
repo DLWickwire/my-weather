@@ -1,53 +1,13 @@
-var columbiaFallsWeather = {
-    "latitude": 48.375,
-    "longitude": 114.125,
-    "current_weather": {
-        "windspeed": 7.9,
-        "temperature": 63.6,
-        "weathercode": 3,
-    }
-};
+var oldcolumbiaFallsWeather = {}
 
-var masonCityWeather = {
-    "latitude": 43.125,
-    "longitude": 93.125,
-    "current_weather": {
-        "temperature": 63,
-        "windspeed": 10.9,
-        "weathercode": 0,
-    }
-};
+var oldmasonCityWeather = {}
 
-var minneapolisWeather = {
-    "latitude": 45,
-    "longitude": 93.25,
-    "current_weather": {
-        "temperature": 52.5,
-        "windspeed": 11.6,
-        "weathercode": 0,
-    }
-};
+var oldminneapolisWeather = {}
 
-var newYorkCityWeather = {
-    "latitude": 40.875,
-    "longitude": 74.125,
-    "current_weather": {
-        "temperature": 42.3,
-        "windspeed": 12.9,
-        "weathercode": 0,
-    }
-};
+var oldnewYorkCityWeather = {}
 
-var seattleWeather = {
-    "latitude": 47.625,
-    "longitude": 122.375,
-    "current_weather": {
-        "temperature": 68.3,
-        "windspeed": 4.6,
-        "weathercode": 3,
+var oldseattleWeather ={}
 
-    }
-};
 
 onEvent("columbiaButton", "click", function () {
     resetButtons();
@@ -61,7 +21,6 @@ onEvent("masonButton", "click", function () {
     showElement("masonData");
     setProperty("masonButton", "height", "50px");
     setText("masonButton", "Have a beautiful day");
-    setText("columbiaButton", "You already know this weather");
 });
 
 onEvent("minnButton", "click", function () {
@@ -103,30 +62,6 @@ function resetButtons() {
 
 
 
-console.log(columbiaFallsWeather.current_weather.temperature);
-console.log(columbiaFallsWeather.current_weather.windspeed);
-console.log(columbiaFallsWeather.current_weather.weathercode);
-
-setText("columbiatemp", columbiaFallsWeather.current_weather.temperature);
-setText("columbiawind", columbiaFallsWeather.current_weather.windspeed);
-setText("columbiacode", columbiaFallsWeather.current_weather.weathercode);
-
-setText("masontemp", masonCityWeather.current_weather.temperature);
-setText("masonwind", masonCityWeather.current_weather.windspeed);
-setText("masoncode", masonCityWeather.current_weather.weathercode);
-
-setText("minntemp", minneapolisWeather.current_weather.temperature);
-setText("minnwind", minneapolisWeather.current_weather.windspeed);
-setText("minncode", minneapolisWeather.current_weather.weathercode);
-
-setText("nyctemp", newYorkCityWeather.current_weather.temperature);
-setText("nycwind", newYorkCityWeather.current_weather.windspeed);
-setText("nyccode", newYorkCityWeather.current_weather.weathercode);
-
-setText("seattletemp", seattleWeather.current_weather.temperature);
-setText("seattlewind", seattleWeather.current_weather.windspeed);
-setText("seattlecode", seattleWeather.current_weather.weathercode);
-
 
 /**
  * Hide an element.
@@ -154,3 +89,123 @@ function showElement(elementId) {
         element.classList.remove("d-none");
     }
 }
+function updateWeatherCard() {
+    setText("columbiatemp", columbiaFallsWeather.current_weather.temperature);
+    setText("columbiawind", columbiaFallsWeather.current_weather.windspeed);
+    setText("columbiacode", columbiaFallsWeather.current_weather.weathercode);
+
+    setText("masontemp", masonCityWeather.current_weather.temperature);
+    setText("masonwind", masonCityWeather.current_weather.windspeed);
+    setText("masoncode", masonCityWeather.current_weather.weathercode);
+
+    setText("minntemp", minneapolisWeather.current_weather.temperature);
+    setText("minnwind", minneapolisWeather.current_weather.windspeed);
+    setText("minncode", minneapolisWeather.current_weather.weathercode);
+
+    setText("nyctemp", newYorkCityWeather.current_weather.temperature);
+    setText("nycwind", newYorkCityWeather.current_weather.windspeed);
+    setText("nyccode", newYorkCityWeather.current_weather.weathercode);
+
+    setText("seattletemp", seattleWeather.current_weather.temperature);
+    setText("seattlewind", seattleWeather.current_weather.windspeed);
+    setText("seattlecode", seattleWeather.current_weather.weathercode);
+
+};
+
+
+function fetchcolumbiaWeather() {
+    const requestOptions = {
+        method: "GET",
+        redirect: "follow"
+    };
+
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=48.37&longitude=114.125&current_weather=true&temperature_unit=fahrenheit", requestOptions)
+        .then((response) => response.json())
+        .then(function (result) {
+            console.log(result);
+            columbiaFallsWeather=result;
+            updateWeatherCard(result);
+
+        })
+        .catch((error)=> console.error(error));
+    }
+
+    fetchcolumbiaWeather();
+
+    function fetchmasonWeather() {
+    const requestOptions = {
+        method: "GET",
+        redirect: "follow"
+    };
+
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=43.125&longitude=93.125&current_weather=true&temperature_unit=fahrenheit", requestOptions)
+        .then((response) => response.json())
+        .then(function (result) {
+            console.log(result);
+            masonCityWeather=result;
+            updateWeatherCard(result);
+
+        })
+        .catch((error)=> console.error(error));
+    }
+
+    fetchmasonWeather();
+
+        function fetchminneapolisWeather() {
+    const requestOptions = {
+        method: "GET",
+        redirect: "follow"
+    };
+
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=45&longitude=93.25&current_weather=true&temperature_unit=fahrenheit", requestOptions)
+        .then((response) => response.json())
+        .then(function (result) {
+            console.log(result);
+            minneapolisWeather=result;
+            updateWeatherCard(result);
+
+        })
+        .catch((error)=> console.error(error));
+    }
+
+    fetchminneapolisWeather();
+
+
+
+function fetchnewYorkCityWeather() {
+    const requestOptions = {
+        method: "GET",
+        redirect: "follow"
+    };
+
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=40.87&longitude=74.12&current_weather=true&temperature_unit=fahrenheit", requestOptions)
+        .then((response) => response.json())
+        .then(function (result) {
+            console.log(result);
+            newYorkCityWeather=result;
+            updateWeatherCard(result);
+
+        })
+        .catch((error)=> console.error(error));
+    }
+
+    fetchnewYorkCityWeather();
+
+    function fetchseattleWeather() {
+    const requestOptions = {
+        method: "GET",
+        redirect: "follow"
+    };
+
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=47.62&longitude=122.37&current_weather=true&temperature_unit=fahrenheit", requestOptions)
+        .then((response) => response.json())
+        .then(function (result) {
+            console.log(result);
+            seattleWeather=result;
+            updateWeatherCard(result);
+
+        })
+        .catch((error)=> console.error(error));
+    }
+
+    fetchseattleWeather();
